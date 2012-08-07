@@ -1,0 +1,35 @@
+- global $post
+
+.row
+  .nine.columns   
+    %section
+      %header
+        %h1
+          = get_page_title()
+              
+      
+      %ul.elenco_eventi
+        - foreach(lastest_posts_of_type('evento', 50, 'date') as $p)
+          - $post = $p
+          - setup_postdata($p)
+          - $dist_temp = distanza_temporale(current_time('timestamp'), get_the_time('U'))
+            
+          - if($dist_temp == 'new')
+            = render_partial("_evento")
+          
+      
+      %ul.elenco_eventi.passati
+        - foreach(lastest_posts_of_type('evento', 50, 'date') as $p)
+          - $post = $p
+          - setup_postdata($p)
+          - $dist_temp = distanza_temporale(current_time('timestamp'), get_the_time('U'))
+            
+          - if($dist_temp == 'old')
+            = render_partial("_evento")
+                      
+                                
+                
+      
+      
+  .three.columns
+    = render_partial("sidebar")

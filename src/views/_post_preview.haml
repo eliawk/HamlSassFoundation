@@ -1,0 +1,75 @@
+-# Ottengo le classi associate al post in modo da evidenziare se il post è sticky
+- $post_class = get_post_class()
+
+%article(class="#{$post_class[5]}")
+  %header
+    %h2
+      = link_to(get_the_title(), get_permalink()) 
+  
+  -# Se è un post di tipo canzone  
+  - if(is_post_type_archive('canzone'))
+    .row
+      .twelve.columns
+        .audio
+          = simple_fields_get_post_value(get_the_id(), "Soundcloud", true)
+          
+  -# Se è galleria di foto
+  - else if(is_post_type_archive('galleria'))
+    - if (has_post_thumbnail())
+      .copertina
+        = link_to(get_the_post_thumbnail(get_the_ID(),'full'), get_permalink())
+        
+    - else
+      -# Se è galleria di foto
+      = render_partial('_gallery')  
+          
+  - else
+  
+    - if (has_post_format('gallery'))
+      - if (has_post_thumbnail())
+        .copertina
+          = link_to(get_the_post_thumbnail(get_the_ID(),'full'), get_permalink())
+    
+    - elseif (has_post_format('image'))
+      - # se è presente la thumbnail
+      - if (has_post_thumbnail())
+        .copertina
+          = link_to(get_the_post_thumbnail(get_the_ID(),'full'), get_permalink())
+        - the_excerpt()
+      
+      -# altrimenti uso l'immagine dentro al post    
+      - else
+        .copertina
+          = the_content()   
+        
+    - elseif (has_post_format('quote'))
+      = the_content()
+      
+    - elseif (has_post_format('audio'))
+      = the_content()  
+  
+    - elseif (has_post_format('video')) 
+      .flex-video.widescreen
+        = the_content()  
+    
+    -# Se è un post normale
+    - else
+      = the_excerpt()
+    
+    .meta
+      .category
+        .icon
+        pubblicato in 
+        = get_taxonomy_link(get_the_ID(), 'category')
+      .data
+        .icon
+        - the_time('j F | Y')
+      .author 
+        .icon
+        - the_author_posts_link()
+
+  -# lo share è presente in tutti in tutte le anteprime
+  .share    
+    - share_1(get_the_title(), get_permalink())
+      
+      

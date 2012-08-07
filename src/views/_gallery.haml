@@ -1,0 +1,28 @@
+- $gallery = simple_fields_get_post_group_values(get_the_id(), "Galleria immagini", false, 2)
+  - if($gallery)
+    %ul(class="gallery")
+      - foreach($gallery as $image)
+        -# url dell'immagine originale
+        - $image_big = wp_get_attachment_image_src( $image[1], 'full')
+        - $image_thumb = wp_get_attachment_image_src( $image[1], 'thumbnail')
+        - $immagine = get_post($image[1])
+  
+        -# costruisco il titolo da mostrare: didascalia + descrizione (credits)
+        - $title = $immagine->post_excerpt.'  |  © '.$immagine->post_content
+        
+        %li(class="gallery-item")  
+          = link_to(image_tag($image_thumb[0]), $image_big[0], '', $title)
+          
+          
+        - $credits = simple_fields_get_post_value(get_the_id(), "Nome Fotografo", true)
+        - $link_credits = simple_fields_get_post_value(get_the_id(), "Link", true)
+        
+        - if($credits)
+          .meta
+            Credits:
+            - if($link_credits) 
+              - $link_credits = 'http://'.$link_credits
+              = link_to($credits, $link_credits) 
+            - else
+              = $credits    
+        

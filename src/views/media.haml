@@ -1,0 +1,23 @@
+- global $post
+.row
+  .nine.columns
+
+    %section.media
+      %h1
+        Video
+      - foreach(latest_posts_of_category('video', -1) as $p)
+        - $post = $p
+        - setup_postdata($p)
+        = render_partial("_post_preview")
+            
+    %section.media
+      %h1
+        Foto
+      - foreach(latest_posts_of_category('foto', -1) as $p)
+        - $post = $p
+        - setup_postdata($p)
+        = render_partial("_post_preview")
+
+    
+  .three.columns
+    = render_partial("sidebar")

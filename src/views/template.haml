@@ -1,0 +1,89 @@
+!!! 5
+%html(html_attrs())
+  %head
+  
+    -# Charset
+    %meta(http-equiv="Content-type" content="text/html;charset=UTF-8")
+   	
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=2.0, width=device-width;">
+    
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-touch-fullscreen" content="yes" />
+    
+    <meta http-equiv="expires" content="Mon, 26 Mar 2012 00:00:00 GMT">
+    
+    -# Title
+    %title= get_page_title(bloginfo('name'), " | ")
+    
+    -# Stylesheets
+    %link(rel="stylesheet" type="text/css" media="all" href="#{public_url('css/screen.css')}")
+    
+    %link(rel="stylesheet" type="text/css" media="all" href="#{public_url('extra/photoswipe/photoswipe.css')}")
+
+    %link(rel="stylesheet" type="text/css" media="all" href="#{public_url('extra/fancybox/source/jquery.fancybox.css?v=2.0.5')}")
+    %link(rel="stylesheet" type="text/css" media="all" href="#{public_url('extra/fancybox/source/helpers/jquery.fancybox-buttons.css?v=2.0.5')}")
+
+
+    /[if lt IE 9]
+      %link(rel="stylesheet" type="text/css" media="all" href="#{public_url('css/ie.css')}")
+    /[if lt IE 9]
+      %link(rel="stylesheet" type="text/css" media="all" href="http://html5shiv.googlecode.com/svn/trunk/html5.js")
+
+    -#Feeds
+    %link(rel="alternate" type="application/rss+xml" title="#{get_bloginfo('name')}" href="#{get_bloginfo('atom_url')}")
+    
+    -#The title, description and image that will be used by Facebook
+    %meta{:name => "title", :content => "#{get_page_title(bloginfo('name'), ' | ')}"}
+    %meta{:name => "description", :content => "#{bloginfo('description')}"}
+    %link{:rel => "image_src", :href => "#{public_url('images/tubi_small.jpg')}"}
+    
+    %script
+      var disqus_developer = 0;
+    
+  %body
+    .page
+      .header = render_partial("_header")
+      .container
+        .row
+          .two.columns
+            = render_partial("_navigation")
+        
+          .ten.columns
+            .content
+              - global $current_view
+              = render_partial($current_view)
+              
+            .footer= render_partial("_footer")
+    
+    
+    %script(type="text/javascript" src="#{public_url('javascripts/framework-ck.js')}")
+
+    -# Photoswipe
+    %script(type="text/javascript" src="#{public_url('extra/photoswipe/klass.min.js')}")
+    %script(type="text/javascript" src="#{public_url('extra/photoswipe/code.photoswipe-3.0.4.min.js')}")
+  
+    -#Fancybox
+    %script(type="text/javascript" src="#{public_url('extra/fancybox/source/jquery.fancybox.pack.js?v=2.0.5')}")
+    %script(type="text/javascript" src="#{public_url('extra/fancybox/source/helpers/jquery.fancybox-buttons.js?v=2.0.5')}")
+    %script(type="text/javascript" src="#{public_url('extra/fancybox/source/helpers/jquery.fancybox-thumbs.js?v=2.0.5')}")
+      
+    
+    %script(type="text/javascript" src="#{public_url('javascripts/functions.js')}")
+    
+    -# Analitics
+    %script(type="text/javascript")
+      
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-29993932-1']);
+      _gaq.push(['_trackPageview']);
+      _gaq.push(['_trackSocial', 'facebook', 'like', opt_target, opt_pagePath]);
+      _gaq.push(['_trackSocial', 'twitter', 'tweet', opt_target, opt_pagePath]);
+      
+      
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+      
+    

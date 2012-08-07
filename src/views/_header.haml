@@ -1,0 +1,16 @@
+.container
+  .row
+    .two.columns
+      .logo
+        %a(href="/")
+          %i
+            = image_tag("logo.png")
+    .seven.columns   
+      %h1= link_to(get_bloginfo('name'),'http://www.diverba.com')
+      %h2= bloginfo('description')
+      
+    .three.columns.hide-on-phones
+      .search_box
+        %form(class="search" method="get" action="/")
+          %input(type="text" name="s" id="search_input" size="10")
+          %input(type="submit" name="button" id="search_button" value="ricerca")
