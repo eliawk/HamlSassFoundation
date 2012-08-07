@@ -16,10 +16,6 @@
 
   if (is_front_page()) {
     render_view("home");
-  } else if(is_page("media")) {
-    render_view("media");
-  } else if(is_post_type_archive("evento")) {
-    render_view("eventi");
   } else if (is_single()) {
     render_view("single");
   } else if (is_page()) {
@@ -27,3 +23,5 @@
   } else {
     render_view("archive");
   }
+  
+  //inutile

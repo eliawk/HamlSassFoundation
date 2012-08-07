@@ -1,22 +1,6 @@
 - global $post
 .sidebar
-  .section.eventi
-    %h3
-      prossimi eventi
-    %ul
-      - foreach(lastest_posts_of_type('evento', 50) as $p)
-        - $post = $p
-        - setup_postdata($p)
-        
-        - $citta = simple_fields_get_post_value(get_the_id(), "Città", true)
-        - $indirizzo = simple_fields_get_post_value(get_the_id(), "Indirizzo", true)
-        - $dist_temp = distanza_temporale(current_time('timestamp'), get_the_time('U'))
-          
-        - if($dist_temp == 'new')
-          = render_partial('_evento')
-              
-      - wp_reset_query()
- 
+
   .section.category
     %h3
       Categorie
@@ -33,9 +17,10 @@
       %li.youtube = link_to('y','http://www.youtube.com/user/diverbamusic/videos','','','_blank')
       %li.soundcloud = link_to('s','http://soundcloud.com/diverba/','','','_blank')
       
+  
   .section.tweet
     %h3 Ultimi tweet
-    - twitter_messages('diverba', 5, true, false, '>>')     
+    /- twitter_messages('diverba', 5, true, false, '>>')     
   
   
   

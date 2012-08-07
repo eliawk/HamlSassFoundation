@@ -1,8 +1,8 @@
 # Require any additional compass plugins here.
-require "zurb-foundation"
+#require "ZURB-foundation"
 
 # Se non funziona usare questo al posto
-#require "/Users/elia/.rvm/gems/ruby-1.8.7-p352@wp_haml_sass/gems/zurb-foundation-3.0.2/lib/zurb-foundation.rb";
+require "/Users/elia/.rvm/gems/ruby-1.8.7-p352@wp_haml_sass/gems/ZURB-foundation-2.2.1.4/lib/ZURB-foundation.rb";
 
 # Set this to the root of your project when deployed:
 http_path = "../.."

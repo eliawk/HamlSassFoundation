@@ -1,57 +1,10 @@
-.row
-  .nine.columns   
-    %section
-      - while(have_posts())
-        - the_post()
-        %article.single
-          %header
-            %h1
-              = get_the_title()
-          
-          - # Se è un post di tipo canzone  
-          - if(is_post_type('canzone'))
-            .row
-              .twelve.columns
-                .audio
-                  = simple_fields_get_post_value(get_the_id(), "Soundcloud", true)
-                  
-            .row
-              .six.columns
-                .testo
-                  = simple_fields_get_post_value(get_the_id(), "Testo", true)
-              .six.columns
-                .spiegazione
-                  = simple_fields_get_post_value(get_the_id(), "Info", true)
-          
-          -# Se è galleria di foto
-          - else if(is_post_type('galleria'))
-            = render_partial('_gallery')                      
-          
-          - elseif (has_post_format('video')) 
-            - video_content(get_the_content())
-            
-              
-          - else
-            = the_content()
+%section
+  - while(have_posts())
+    - the_post()
+    %article.single
+      %header
+        %h1
+          = get_the_title()
+    
+      = the_content()
         
-          - if(!is_page() && !is_post_type('canzone') && !is_post_type('galleria'))
-            .meta
-              .category
-                .icon
-                pubblicato in 
-                = get_taxonomy_link(get_the_ID(), 'category')
-              .data
-                .icon
-                - the_time('j F | Y')
-              .author 
-                .icon
-                - the_author_posts_link()
-          - if (!is_page())  
-            .share    
-              - share_1(get_the_title(), get_permalink())
-              
-            -# comments_template()
-    
-    
-  .three.columns
-    = render_partial("sidebar")

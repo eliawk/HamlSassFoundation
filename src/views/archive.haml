@@ -1,28 +1,25 @@
-.row
-  .nine.columns
-    %section.archive
-      %header
-        %h1
-          = get_page_title()
-           
-      %section
-        - while(have_posts())
-          - the_post()
-          -# Se è una pagina di ricerca
-          -if (is_search())
-            %article.risultato_search
-              %header
-                %h3
-                  = link_to(get_the_title(), get_permalink()) 
-                - the_excerpt()
-          - else  
-            = render_partial("_post_preview")
-            
-        .next_prev  
-          .next
-            - previous_posts_link('successivi')
-          .prev
-            - next_posts_link('precedenti')
+%section.archive
+  %header
+    %h1
+      = get_page_title()
+       
+  %section
+    - while(have_posts())
+      - the_post()
       
-  .three.columns
-    = render_partial("sidebar")
+      -# Se è una pagina di ricerca
+      -if (is_search())
+        %article.risultato_search
+          %header
+            %h3
+              = link_to(get_the_title(), get_permalink()) 
+            - the_excerpt()
+      - else  
+        = render_partial("_post_preview")
+        
+    .next_prev  
+      .next
+        - previous_posts_link('successivi')
+      .prev
+        - next_posts_link('precedenti')
+      

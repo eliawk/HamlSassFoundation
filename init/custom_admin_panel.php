@@ -5,7 +5,17 @@
 // Logo personalizzato nel login del backend
 function custom_login_logo() {
   echo '<style type="text/css">
-    h1 a { background-image:url('.get_bloginfo('template_directory').'/public/images/login_logo.png) !important; display:none; }
+    .login h1 { 
+      background-image:url('.get_bloginfo('template_directory').'/public/images/logo_admin.png) !important;
+      background-size: 300px 56px;
+      background-position: top center;
+      background-repeat: no-repeat;
+      width: 326px;
+      height: 60px;
+      margin-bottom: 5px;
+    }
+    .login h1 a {display:none; !important;}
+    
     </style>';
 }
 
@@ -13,8 +23,8 @@ function custom_login_logo() {
 function remove_menu_items() {
   
   global $menu;
-  $restricted = array( __('Comments'), __('Media'),__('Pages'),
-  __('Plugins'), __('Tools'), __('Aree'), __('Avvocati'), __('Collaborators'), __('Counsels'), __('Users'), __('Appearance'), __('Settings'));
+  $restricted = array( __('Posts'),__('Media'),__('Comments'), __('Plugins'), __('Tools'), __('Settings'), __('Link'),__('Appearance'));
+  
   end ($menu);
   while (prev($menu)){
     $value = explode(' ',$menu[key($menu)][0]);
@@ -41,13 +51,30 @@ function customize_meta_boxes() {
   remove_meta_box('commentsdiv','page','normal'); 
 }
 
+//rimuovo i widget non utilizzati
+function unregister_default_wp_widgets() {
+	unregister_widget('WP_Widget_Pages');
+	unregister_widget('WP_Widget_Calendar');
+	unregister_widget('WP_Widget_Archives');
+	unregister_widget('WP_Widget_Links');
+	unregister_widget('WP_Widget_Meta');
+	unregister_widget('WP_Widget_Search');
+	unregister_widget('WP_Widget_Categories');
+	unregister_widget('WP_Widget_Recent_Comments');
+	unregister_widget('WP_Widget_Tag_Cloud');
+	unregister_widget('WP_Widget_RSS');
+	unregister_widget('WP_Widget_Akismet');
+}
+
 function remove_contact_form(){
 	echo "<style type='text/css' media='screen'>#toplevel_page_wpcf7{display:none;}</style>";
 }
 
-function custom_logo() {
+function custom_admin_bar() {
   echo '<style type="text/css">
     #wp-admin-bar-wp-logo{display:none;}
+    #wp-admin-bar-comments{display:none;}
+    
     #header-logo { background-image: url('.get_bloginfo('template_directory').'/public/images/logo.png) !important; width: 40px;}
     </style>';
 }
@@ -66,7 +93,7 @@ function remove_dashboard_widgets(){
 }
 
 function modify_footer_admin () {
-  echo 'Sito realizzato da <a href="http://www.lospaziodiake.com">elia pellegrino</a>. ';
+  echo 'Sito realizzato da <a href="mailto:elia.pellegrino@gmail.com">elia pellegrino</a>. ';
 //  echo 'Powered by <a href="http://WordPress.org">WordPress</a>.';
 }
 
@@ -83,6 +110,15 @@ function posts_for_current_author($query) {
   return $query;
 }
 
+//Rimuove avviso di update
+function wphidenag() {
+  remove_action( 'admin_notices', 'update_nag', 3 );
+}	
+
+// get the the role object
+$role_object = get_role( 'editor' );
+
+// add $cap capability to this role object
 
 
 
@@ -90,26 +126,31 @@ global $current_user;
 get_currentuserinfo();
 
 
-if( $current_user->user_login != 'admin' && $current_user->user_login != 'diverba' ){
-  //Rimuove elementi del menu
+
+
+
+
+
+if( $current_user->user_login != 'admin'){
+  //Rimuove elementi del menu laterale
   add_action('admin_menu', 'remove_menu_items');
+
   //Rimuove box dei post
- 
   add_action('admin_menu','customize_meta_boxes');
   
   add_action('admin_head','remove_contact_form');
+  //rimuove i widget
+  add_action('widgets_init', 'unregister_default_wp_widgets', 1);
   
   //Rimuove avviso di update
   add_action('admin_menu','wphidenag');
-  function wphidenag() {
-  remove_action( 'admin_notices', 'update_nag', 3 );
-  }	
+  
 }
 
 
 add_action('login_head', 'custom_login_logo');
 
-add_action('admin_head', 'custom_logo');
+add_action('admin_head', 'custom_admin_bar');
 
 //add_action('wp_dashboard_setup', 'remove_dashboard_widgets');
 
