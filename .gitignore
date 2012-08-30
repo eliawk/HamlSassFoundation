@@ -1,5 +1,5 @@
 .sass-cache
 public/css/*
-public/javascripts/*
+public/javascripts/functions.js
 tmp/*
 .DS_Store
