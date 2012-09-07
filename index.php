@@ -15,13 +15,19 @@
   */
 
   if (is_front_page()) {
+<<<<<<< HEAD
     render_view("home");
+=======
+    render_view("page");
+  } else if (is_post_type_archive()) {
+    render_view("archive");
+>>>>>>> 5e78908... update index + 404 page
   } else if (is_single()) {
     render_view("single");
   } else if (is_page()) {
     render_view("single");
   } else {
-    render_view("archive");
+    render_view("404");
   }
   
   //inutile
