@@ -23,7 +23,7 @@ function custom_login_logo() {
 function remove_menu_items() {
   
   global $menu;
-  $restricted = array( __('Posts'),__('Media'),__('Comments'), __('Plugins'), __('Tools'), __('Settings'), __('Link'),__('Appearance'));
+  $restricted = array( __('Media'),__('Comments'), __('Plugins'), __('Tools'), __('Settings'), __('Link'),__('Appearance'));
   
   end ($menu);
   while (prev($menu)){
@@ -66,9 +66,44 @@ function unregister_default_wp_widgets() {
 	unregister_widget('WP_Widget_Akismet');
 }
 
+// Modifico posizione ed etichette delle tab
+require_once('wp-admin-menu-classes.php');
+
+
+function my_admin_menu() {
+  swap_admin_menu_sections('Pagine','Articoli');              // Swap location of Posts Section with Pages Section
+  rename_admin_menu_section('Media','Photos & Video');    // Rename Media Section to "Photos & Video"
+  remove_admin_menu_section('Theme Options');                     // Get rid of Links Section
+//  $movie_tags_item_array = get_admin_menu_item_array('Movies','Movie Tags');  // Save off the Movie Tags Menu
+//  update_admin_menu_section('Movies',array(               // Rename two Movie Menu Items and Delete the Movie Tags Item
+//    array('rename-item','item'=>'Movies','new_title'=>'List Movies'),
+//    array('rename-item','item'=>'Add New','new_title'=>'Add Movie'),
+//    array('delete-item','item'=>'Movie Tags'),
+//  ));
+//  copy_admin_menu_item('Movies',array('Actors','Add New')); // Copy the 'Add New' over from Actors
+//  rename_admin_menu_item('Movies','Add New','Add Actor');  // Rename copied Actor 'Add New' to 'Add Actor
+//  add_admin_menu_item('Movies',array(                       // (Another way to get a 'Add Actor' Link to a section.)
+//    'title' => 'Alt Add Actor ',
+//    'slug' => 'post-new.php?post_type=actor',
+//  ), array(// Add Back the Movie Tags at the end.
+//    'where'=>'end'
+//  ));
+//  add_admin_menu_item('Movies',$movie_tags_item_array,array(// Add Back the Movie Tags at the end.
+//    'where'=>'end'
+//  ));
+//  delete_admin_menu_section('Actors');                      // Finally just get rid of the actors section
+}
+
+
 function remove_contact_form(){
 	echo "<style type='text/css' media='screen'>#toplevel_page_wpcf7{display:none;}</style>";
 }
+
+
+function remove_theme_options(){
+	echo "<style type='text/css' media='screen'>#toplevel_page_neuTothemes{display:none;}</style>";
+}
+
 
 function custom_admin_bar() {
   echo '<style type="text/css">
@@ -139,11 +174,15 @@ if( $current_user->user_login != 'admin'){
   add_action('admin_menu','customize_meta_boxes');
   
   add_action('admin_head','remove_contact_form');
+  add_action('admin_head','remove_theme_options');
   //rimuove i widget
   add_action('widgets_init', 'unregister_default_wp_widgets', 1);
   
   //Rimuove avviso di update
   add_action('admin_menu','wphidenag');
+  
+  // Modifico posizione ed etichette delle tab
+  add_action('admin_menu','my_admin_menu');
   
 }
 
