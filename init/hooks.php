@@ -44,6 +44,16 @@
   add_filter('upload_mimes', 'custom_upload_mimes');
 */
 
+/* Add class nice to contact form 7 */
+
+add_filter( 'wpcf7_form_class_attr', 'your_custom_form_class_attr' );
+
+function your_custom_form_class_attr( $class ) {
+	$class .= ' nice';
+	return $class;
+}
+
+
 
 /* Remove Inline CSS and Line Breaks in WordPress Galleries */
   
