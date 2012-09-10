@@ -324,7 +324,7 @@ function get_page_title($prefix = "", $separator = "") {
     $category = get_category(get_query_var('cat'),false);
     $title = get_cat_name($category->cat_ID);
   }
-  if (is_post_type_archive()) {
+  if (is_post_type_archive() || is_home()) {
     $title = get_post_type_singular_name();
   }
   if (is_single() || is_page()) {
