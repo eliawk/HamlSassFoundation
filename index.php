@@ -27,4 +27,3 @@
     render_view("404");
   }
   
-  //inutile
