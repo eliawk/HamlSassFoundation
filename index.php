@@ -16,7 +16,6 @@
 
   if (is_front_page()) {
     render_view("home");
-    render_view("page");
   } else if (is_post_type_archive()) {
     render_view("archive");
   } else if (is_single()) {
