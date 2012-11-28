@@ -3,3 +3,4 @@ public/css/*
 public/javascripts/functions.js
 tmp/*
 .DS_Store
+*.esproj
