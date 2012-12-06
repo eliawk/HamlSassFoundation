@@ -14,15 +14,17 @@
 
   */
 
-  if (is_front_page()) {
-    render_view("home");
-  } else if (is_post_type_archive()) {
-    render_view("archive");
-  } else if (is_single()) {
-    render_view("single");
-  } else if (is_page()) {
-    render_view("single");
-  } else {
-    render_view("404");
-  }
+ if (is_front_page()) {
+   render_view("page");
+ } else if (is_post_type_archive()) {
+   render_view("archive");
+ } else if (is_single()) {
+   render_view("single");
+ } else if (is_page()) {
+   render_view("page");
+ } else if (is_404()) {
+   render_view("404");
+ } else {
+   render_view("archive");
+ }
   
