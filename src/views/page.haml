@@ -1,0 +1,11 @@
+page
+%section
+  - while(have_posts())
+    - the_post()
+    %article.single
+      %header
+        %h1
+          = get_the_title()
+    
+      = the_content()
+        
